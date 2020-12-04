@@ -6,18 +6,18 @@ class Domino<T> (){
         this.right = right
     }
 
-    private var left: T
-        get() = left
+    private var left: T? = null
+        get() = field
 
         set(value){
-            value.also { left = it }
+          field = value
         }
 
-    private var right: T
-        get() = right
+    private var right: T? = null
+        get() = field
 
         set(value){
-            value.also { this.right = it }
+            field = value
         }
 
 
@@ -25,9 +25,9 @@ class Domino<T> (){
      * Flip the left and right side of the domino tile.
      */
     fun flip() {
-        left += right
-        right = left - right
-        left -= right
+        left = left.plus(right)
+        right = left.minus(right)
+        left = left.minus(right)
     }
 
     /**
@@ -71,11 +71,13 @@ class Domino<T> (){
 
 }
 
-private operator fun <T> T.minus(right: T): T {
-    return right
+private operator fun <T> T.minus(value: T): T {
+    return this - value
 }
 
-private operator fun <T> T.plusAssign(right: T) {
-    
+private operator fun <T> T.plus(value: T): T {
+    return this + value
 }
+
+
 
