@@ -2,21 +2,21 @@ package com.nhcompany.domino.model
 
 import java.util.*
 
-class DominoDeck {
-    lateinit var dominoDeck: MutableList<Domino<Int>>
+class DominoDeck (type: DominoDeckType) {
+    private var dominoDeck: MutableList<Domino<Int>> = ArrayList()
 
     /**
      * This constructor will create all dominoes based on the given type of domino set.
      * Shuffle the created dominoes after creation to put them in a random order.
      */
-    fun DominoSet(type: DominoDeckType) {
-        dominoDeck = ArrayList()
+    init {
         for (i in 0..type.number) {
             for (j in i until type.number) {
                 val domino = Domino(i, j)
                 (dominoDeck as ArrayList<Domino<Int>>).add(domino)
             }
         }
+        dominoDeck.shuffle()
     }
 
     /**
